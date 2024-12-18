@@ -39,16 +39,16 @@ async function sendToWecom(env, message) {
 function formatContentForWecom(type, title, content, url = null, isEdit = false) {
   // 根据类型选择不同的emoji
   const typeEmoji = type === 'file' ? '📄' : type === 'image' ? '🖼️' : '📝';
-  
+
   let message = '';
   if (isEdit) {
     message = `✏️ 内容已更新\n\n`;
   } else {
     message = `${typeEmoji} 新${type === 'file' ? '文件' : type === 'image' ? '图片' : '内容'}上传\n\n`;
   }
-  
+
   message += `📌 标题: ${title}\n\n`;
-  
+
   if (type === 'text' || type === 'code' || type === 'poetry') {
     message += `💬 内容:\n\n${content}`;
   } else if (type === 'file' || type === 'image') {
@@ -65,7 +65,7 @@ function formatContentForWecom(type, title, content, url = null, isEdit = false)
 // 截断消息以符合企业微信限制
 function truncateMessage(message) {
   const MAX_LENGTH = 2048; // 企业微信文本消息长度限制
-  
+
   if (message.length <= MAX_LENGTH) {
     return message;
   }
